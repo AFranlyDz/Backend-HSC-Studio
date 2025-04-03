@@ -11,3 +11,8 @@ class rcg_serializados(serializers.ModelSerializer):
         model = Rasgos_Clinicos_Globales
         fields = ["id", "codificador", "notas"]
         depth = 1
+
+class rcg_serializados_2(serializers.ModelSerializer):
+    class Meta:
+        model = Rasgos_Clinicos_Globales
+        fields = ["id", "codificador", "historia_clinica", "notas"]
