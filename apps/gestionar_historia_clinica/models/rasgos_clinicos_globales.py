@@ -18,4 +18,4 @@ class Rasgos_Clinicos_Globales(models.Model):
 
     class Meta:
         verbose_name = "rasgo clinico global"
-        verbose_name_plural = "resgos clinicos globales"
+        verbose_name_plural = "rasgos clinicos globales"
