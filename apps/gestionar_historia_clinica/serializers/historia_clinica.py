@@ -3,10 +3,12 @@ from ..models.historia_clinica import historia_clinica
 from apps.gestionar_historia_clinica.serializers.rcg_serializados import (
     rcg_serializados,
 )
+from apps.gestionar_episodio.serializers.episodio import episodio_serializado
 
 
 class historia_clinica_serializada(serializers.ModelSerializer):
     rcg = rcg_serializados(many=True, source="historia_clinica.all")
+    episodios = episodio_serializado(many=True, source="historia_clinica_episodio.all")
 
     class Meta:
         model = historia_clinica
@@ -22,4 +24,5 @@ class historia_clinica_serializada(serializers.ModelSerializer):
             "manualidad",
             "antecedentes_familiares",
             "rcg",
+            "episodios",
         ]
