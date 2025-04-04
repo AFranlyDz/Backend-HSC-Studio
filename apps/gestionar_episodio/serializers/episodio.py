@@ -7,7 +7,6 @@ class episodio_serializado(serializers.ModelSerializer):
         model = Episodio
         fields = [
             "id",
-            "historia_clinica_id",
             "inicio",
             "fecha_alta",
             "tiempo_estadia",
@@ -17,3 +16,9 @@ class episodio_serializado(serializers.ModelSerializer):
             "edad_paciente",
             "observaciones",
         ]
+
+
+class episodio_serializado_2(serializers.ModelSerializer):
+    class Meta:
+        model = Episodio
+        fields = "__all__"

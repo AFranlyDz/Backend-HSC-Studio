@@ -5,7 +5,9 @@ from apps.gestionar_historia_clinica.models.historia_clinica import historia_cli
 # Create your models here.
 class Episodio(models.Model):
     historia_clinica = models.ForeignKey(
-        historia_clinica, on_delete=models.CASCADE, related_name="episodios"
+        historia_clinica,
+        on_delete=models.CASCADE,
+        related_name="historia_clinica_episodio",
     )
     inicio = models.DateField()
     fecha_alta = models.DateField()
