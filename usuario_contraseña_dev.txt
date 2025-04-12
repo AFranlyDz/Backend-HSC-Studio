@@ -1,3 +1,3 @@
-usuario: Franly
+usuario: franly
 email: 
-password: HSC2893!
+password: HolaMundo

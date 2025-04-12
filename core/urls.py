@@ -22,17 +22,26 @@ from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.routers import DefaultRouter
 
-from apps.gestionar_historia_clinica.views.historia_clinica import (
+from apps.hc.views.historia_clinica import (
     historia_clinica_listada,
 )
-from apps.gestionar_historia_clinica.views.rasgos_clinicos_globales import (
+from apps.hc.views.rasgos_clinicos_globales import (
     rasgos_clinicos_globales_view,
 )
-from apps.gestionar_episodio.views.episodio import episodio_view
-from apps.gestionar_episodio.views.rasgos_clinicos_episodio import (
-    ver_rasgos_clinicos_episodio,
+from apps.episodio.views.episodio import episodio_view
+from apps.episodio.views.rasgos_clinicos_episodio import (
+    rasgo_clinico_episodio_view,
 )
 from apps.codificadores.views import Codificadores_View
+from apps.registro_operatorio.views.Registro_Operatorio_View import (
+    Registro_Operatorio_View,
+)
+from apps.registro_operatorio.views.Registro_Posoperatorio_View import (
+    Registro_Posoperatorio_View,
+)
+from apps.registro_operatorio.views.Rasgos_Clinicos_Operatorios_View import (
+    Rasgos_Clinicos_Operatorios_View,
+)
 
 router = DefaultRouter()
 router.register(
@@ -47,15 +56,28 @@ router.register(
 )
 router.register(r"codificadores", Codificadores_View, basename="codificadores")
 router.register(r"episodios", episodio_view, basename="episodios")
+router.register(
+    r"rasgos_clinicos_episodio",
+    rasgo_clinico_episodio_view,
+    basename="rasgos-clinicos-episodio",
+)
+router.register(
+    r"registro_operatorio", Registro_Operatorio_View, basename="registro-operatorio"
+)
+router.register(
+    r"registro_posoperatorio",
+    Registro_Posoperatorio_View,
+    basename="registro-posoperatorio",
+)
+router.register(
+    r"rasgos_clinicos_operatorios",
+    Rasgos_Clinicos_Operatorios_View,
+    basename="rasgos-clinicos-operatorios",
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
     path("api/", include(router.urls)),
-    path(
-        "api/gestionar_rasgos_clinicos_episodio/<int:episodio_id>/<int:codificador_id>/",
-        ver_rasgos_clinicos_episodio,
-        name="Rasgos Clinicos del Episodio",
-    ),
 ]

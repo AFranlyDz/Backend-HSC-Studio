@@ -17,9 +17,10 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
-    "apps.gestionar_historia_clinica",
-    "apps.gestionar_episodio",
+    "apps.hc",
+    "apps.episodio",
     "apps.codificadores",
+    "apps.registro_operatorio",
 ]
 
 THIRD_PARTY_APPS = [
