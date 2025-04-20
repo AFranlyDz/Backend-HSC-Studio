@@ -42,6 +42,7 @@ from apps.registro_operatorio.views.Registro_Posoperatorio_View import (
 from apps.registro_operatorio.views.Rasgos_Clinicos_Operatorios_View import (
     Rasgos_Clinicos_Operatorios_View,
 )
+from apps.hematoma.views import Hematoma_Subdural_View
 
 router = DefaultRouter()
 router.register(
@@ -73,6 +74,9 @@ router.register(
     r"rasgos_clinicos_operatorios",
     Rasgos_Clinicos_Operatorios_View,
     basename="rasgos-clinicos-operatorios",
+)
+router.register(
+    r"hematomas_subdurales", Hematoma_Subdural_View, basename="hematomas-subdurales"
 )
 
 urlpatterns = [
