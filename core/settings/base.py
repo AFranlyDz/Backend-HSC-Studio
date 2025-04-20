@@ -21,6 +21,7 @@ PROJECT_APPS = [
     "apps.episodio",
     "apps.codificadores",
     "apps.registro_operatorio",
+    "apps.hematoma",
 ]
 
 THIRD_PARTY_APPS = [
