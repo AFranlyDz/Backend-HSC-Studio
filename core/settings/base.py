@@ -22,6 +22,7 @@ PROJECT_APPS = [
     "apps.codificadores",
     "apps.registro_operatorio",
     "apps.hematoma",
+    "apps.exportar_csv",
 ]
 
 THIRD_PARTY_APPS = [
