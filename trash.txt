@@ -1,0 +1,157 @@
+def _prepare_headers(self, selected_fields):
+        field_names = {
+            # Historia Clínica
+            "numero": "Número HC",
+            "seudonimo": "Seudónimo",
+            "nombre": "Nombre",
+            "apellidos": "Apellidos",
+            "edad": "Edad",
+            "sexo": "Sexo",
+            "historial_trauma_craneal": "Historial Trauma Craneal",
+            "manualidad": "Manualidad",
+            "antecedentes_familiares": "Antecedentes Familiares",
+            # Rasgos Clínicos Globales
+            "historia_clinica.codificador.nombre": "RCG - Nombre Codificador",
+            "historia_clinica.codificador.nombre_corto": "RCG - Nombre Corto",
+            "historia_clinica.codificador.descripcion": "RCG - Descripción",
+            "historia_clinica.codificador.clasificacion": "RCG - Clasificación",
+            "historia_clinica.notas": "RCG - Notas",
+            # Episodio
+            "episodio.inicio": "Episodio - Inicio",
+            "episodio.fecha_alta": "Episodio - Fecha Alta",
+            "episodio.tiempo_estadia": "Episodio - Tiempo Estadia",
+            "episodio.estado_al_egreso": "Episodio - Estado Egreso",
+            "episodio.tiempo_antecedente": "Episodio - Tiempo Antecedente",
+            "episodio.descripcion_antecedente": "Episodio - Descripción Antecedente",
+            "episodio.edad_paciente": "Episodio - Edad Paciente",
+            "episodio.observaciones": "Episodio - Observaciones",
+            # Rasgos Clínicos del Episodio
+            "episodio.episodio_rce.codificador.nombre": "RCE - Nombre Codificador",
+            "episodio.episodio_rce.codificador.nombre_corto": "RCE - Nombre Corto",
+            "episodio.episodio_rce.codificador.descripcion": "RCE - Descripción",
+            "episodio.episodio_rce.codificador.clasificacion": "RCE - Clasificación",
+            "episodio.episodio_rce.tiempo": "RCE - Tiempo",
+            "episodio.episodio_rce.notas": "RCE - Notas",
+            # Registro Operatorio
+            "episodio.episodio_registro_operatorio.fecha_operacion": "Registro Op. - Fecha Operación",
+            "episodio.episodio_registro_operatorio.es_reintervencion": "Registro Op. - Reintervención",
+            "episodio.episodio_registro_operatorio.escala_evaluacion_resultados_glasgow": "Registro Op. - Escala Glasgow",
+            "episodio.episodio_registro_operatorio.estado_egreso": "Registro Op. - Estado Egreso",
+            "episodio.episodio_registro_operatorio.observaciones": "Registro Op. - Observaciones",
+            # Registro Posoperatorio
+            "episodio.episodio_registro_operatorio.registro_operatorio_posoperatorio.fecha": "Posoperatorio - Fecha",
+            "episodio.episodio_registro_operatorio.registro_operatorio_posoperatorio.tiempo_transcurrido": "Posoperatorio - Tiempo Transcurrido",
+            "episodio.episodio_registro_operatorio.registro_operatorio_posoperatorio.escala_pronostica_oslo_posoperatoria": "Posoperatorio - Escala Oslo",
+            "episodio.episodio_registro_operatorio.registro_operatorio_posoperatorio.recurrencia_hematoma": "Posoperatorio - Recurrencia Hematoma",
+            "episodio.episodio_registro_operatorio.registro_operatorio_posoperatorio.gradacion_pronostica_para_recurrencia_hsc_unilateral": "Posoperatorio - Gradación Recurrencia",
+            # Hematoma Subdural
+            "episodio.hematoma_episodio.escala_glasgow_ingreso": "Hematoma - Escala Glasgow Ingreso",
+            "episodio.hematoma_episodio.escala_mcwalder": "Hematoma - Escala McWalder",
+            "episodio.hematoma_episodio.escala_gordon_firing": "Hematoma - Escala Gordon Firing",
+            "episodio.hematoma_episodio.escala_pronostica_oslo_preoperatoria": "Hematoma - Escala Oslo Preop",
+            "episodio.hematoma_episodio.escala_nomura": "Hematoma - Escala Nomura",
+            "episodio.hematoma_episodio.escala_nakagushi": "Hematoma - Escala Nakagushi",
+            "episodio.hematoma_episodio.valor_longitud": "Hematoma - Longitud",
+            "episodio.hematoma_episodio.valor_diametro": "Hematoma - Diámetro",
+            "episodio.hematoma_episodio.valor_altura": "Hematoma - Altura",
+            "episodio.hematoma_episodio.volumen_tada": "Hematoma - Volumen TADA",
+            "episodio.hematoma_episodio.volumen": "Hematoma - Volumen",
+            "episodio.hematoma_episodio.grupo_volumen": "Hematoma - Grupo Volumen",
+            "episodio.hematoma_episodio.grupo_volumen_residual_posoperatorio": "Hematoma - Grupo Volumen Residual",
+            "episodio.hematoma_episodio.diametro_capa": "Hematoma - Diámetro Capa",
+            "episodio.hematoma_episodio.diametro_mayor_transverso": "Hematoma - Diámetro Mayor Transverso",
+            "episodio.hematoma_episodio.grupo_diametro": "Hematoma - Grupo Diámetro",
+            "episodio.hematoma_episodio.presencia_membrana": "Hematoma - Presencia Membrana",
+            "episodio.hematoma_episodio.tipo_membrana": "Hematoma - Tipo Membrana",
+            "episodio.hematoma_episodio.localización": "Hematoma - Localización",
+            "episodio.hematoma_episodio.topografia": "Hematoma - Topografía",
+            "episodio.hematoma_episodio.desviacion_linea_media": "Hematoma - Desviación Línea Media",
+            "episodio.hematoma_episodio.metodo_lectura": "Hematoma - Método Lectura",
+            "episodio.hematoma_episodio.observaciones": "Hematoma - Observaciones",
+            # Rasgos Clínicos Operatorios
+            "episodio.episodio_registro_operatorio.rasgos_clinicos_operatorios.codificador.nombre": "Rasgo Op. - Nombre Codificador",
+            "episodio.episodio_registro_operatorio.rasgos_clinicos_operatorios.codificador.nombre_corto": "Rasgo Op. - Nombre Corto",
+            "episodio.episodio_registro_operatorio.rasgos_clinicos_operatorios.codificador.descripcion": "Rasgo Op. - Descripción",
+            "episodio.episodio_registro_operatorio.rasgos_clinicos_operatorios.codificador.clasificacion": "Rasgo Op. - Clasificación",
+        }
+
+        return [field_names.get(field, field) for field in selected_fields]
+
+##########################################################
+
+        # Exportar registros operatorios
+            regop_fields = [
+                f
+                for f in episodio_fields
+                if "episodio_registro_operatorio" in f
+                and "registro_operatorio_posoperatorio" not in f
+                and "rasgos_clinicos_operatorios" not in f
+            ]
+            if regop_fields:
+                for registro in episodio.episodio_registro_operatorio.all():
+                    reg_row = epi_row.copy()
+                    reg_row.extend(
+                        [
+                            self._get_direct_field(registro, f.split(".")[-1])
+                            for f in regop_fields
+                        ]
+                    )
+
+                    # Exportar posoperatorios
+                    posop_fields = [
+                        f
+                        for f in episodio_fields
+                        if "registro_operatorio_posoperatorio" in f
+                    ]
+                    if posop_fields:
+                        for posop in registro.registro_operatorio_posoperatorio.all():
+                            posop_row = reg_row.copy()
+                            posop_row.extend(
+                                [
+                                    self._get_direct_field(posop, f.split(".")[-1])
+                                    for f in posop_fields
+                                ]
+                            )
+                            writer.writerow(posop_row)
+
+                    # Exportar rasgos operatorios
+                    rasgo_fields = [
+                        f for f in episodio_fields if "rasgos_clinicos_operatorios" in f
+                    ]
+                    if rasgo_fields:
+                        for rasgo_op in registro.rasgos_clinicos_operatorios.all():
+                            rasgo_row = reg_row.copy()
+                            rasgo_row.extend(
+                                [
+                                    (
+                                        self._get_direct_field(
+                                            rasgo_op, f.split(".")[-1]
+                                        )
+                                        if "rasgos_clinicos_operatorios." in f
+                                        else self._get_nested_field(
+                                            hc, episodio, f, rasgo_op
+                                        )
+                                    )
+                                    for f in rasgo_fields
+                                ]
+                            )
+                            writer.writerow(rasgo_row)
+
+                    if not posop_fields and not rasgo_fields:
+                        writer.writerow(reg_row)
+
+            # Exportar hematomas
+            hem_fields = [f for f in episodio_fields if "hematoma_episodio" in f]
+            if hem_fields:
+                for hematoma in episodio.hematoma_episodio.all():
+                    hem_row = epi_row.copy()
+                    hem_row.extend(
+                        [
+                            self._get_direct_field(hematoma, f.split(".")[-1])
+                            for f in hem_fields
+                        ]
+                    )
+                    writer.writerow(hem_row)
+
+            if not any([rce_fields, regop_fields, hem_fields]):
+                writer.writerow(epi_row)
