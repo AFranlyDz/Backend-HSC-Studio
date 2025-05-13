@@ -9,5 +9,5 @@ class Codificadores(models.Model):
     clasificacion = models.CharField(max_length=255)
 
     class Meta:
-        verbose_name = "Codificador"
-        verbose_name_plural = "Codificadores"
+        verbose_name = "codificador"
+        verbose_name_plural = "codificadores"

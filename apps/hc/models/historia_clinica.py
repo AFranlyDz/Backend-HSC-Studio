@@ -14,5 +14,5 @@ class historia_clinica(models.Model):
     antecedentes_familiares = models.BooleanField()
 
     class Meta:
-        verbose_name = "Historia Clínica"
-        verbose_name_plural = "Historias Clínicas"
+        verbose_name = "historia clínica"
+        verbose_name_plural = "historias clínicas"
