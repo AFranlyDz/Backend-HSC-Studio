@@ -15,7 +15,7 @@ from apps.registro_operatorio.models.Registro_Posoperatorio import (
 from apps.hematoma.models import hematoma_subdural
 
 
-def make_dataframe(campos_seleccionados):
+def make_dataframe(campos_seleccionados, tipo=1):
     pd.set_option("display.max_rows", None)
     pd.set_option("display.max_columns", None)
 
@@ -51,8 +51,8 @@ def make_dataframe(campos_seleccionados):
             campos_hematoma.append(campo.split(".")[1])
 
     # Tomar los modelos de la bd en dataframes
-    historia_df = pd.DataFrame(
-        list(historia_clinica.objects.all().values(*campos_historia))
+    historia_df = pd.DataFrame.from_records(
+        historia_clinica.objects.all().values(*campos_historia)
     )
     episodio_df = pd.DataFrame(list(Episodio.objects.all().values(*campos_episodio)))
     codificador_df = pd.DataFrame(
@@ -94,49 +94,49 @@ def make_dataframe(campos_seleccionados):
         pd.merge(
             historia_df,
             episodio_df,
-            how="inner",
+            how="outer",
             left_on="id",
             right_on="historia_clinica_id",
             suffixes=("_historia", "_episodio"),
         )
         .merge(
             rasgo_clinico_global_df,
-            how="inner",
+            how="outer",
             left_on="id_historia",
             right_on="historia_clinica_id",
             suffixes=(None, "_rasgo_clinico_global"),
         )
         .merge(
             rasgo_clinico_episodio_df,
-            how="inner",
+            how="outer",
             left_on="id_episodio",
             right_on="episodio_id",
             suffixes=(None, "_rasgos_clinicos_episodio"),
         )
         .merge(
             registro_operatorio_df,
-            how="inner",
+            how="outer",
             left_on="id_episodio",
             right_on="episodio_id",
             suffixes=(None, "_registro_operatorio"),
         )
         .merge(
             rasgo_clinico_operatorio_df,
-            how="inner",
+            how="outer",
             left_on="id_registro_operatorio",
             right_on="registro_operatorio_id",
             suffixes=(None, "_rasgo_clinico_operatorio"),
         )
         .merge(
             registro_posoperatorio_df,
-            how="inner",
+            how="outer",
             left_on="id_registro_operatorio",
             right_on="registro_operatorio_id",
             suffixes=(None, "_registro_posoperatorio"),
         )
         .merge(
             hematoma_df,
-            how="inner",
+            how="outer",
             left_on="id_episodio",
             right_on="episodio_id",
             suffixes=(None, "_hematoma"),
@@ -202,19 +202,33 @@ def make_dataframe(campos_seleccionados):
         ],
         axis=1,
     )
-    total_df = total_df.drop(
-        [
-            "id_historia",
-            "id_episodio",
-            # "id_rasgos_clinicos_globales",
-            "id_rasgos_clinicos_episodio",
-            "id_registro_operatorio",
-            "id_rasgo_clinico_operatorio",
-            "id_registro_posoperatorio",
-            "id_hematoma",
-        ],
-        axis=1,
-    )
+    if tipo == 1:
+        total_df = total_df.drop(
+            [
+                "id_historia",
+                "id_episodio",
+                # "id_rasgos_clinicos_globales",
+                "id_rasgos_clinicos_episodio",
+                "id_registro_operatorio",
+                "id_rasgo_clinico_operatorio",
+                "id_registro_posoperatorio",
+                "id_hematoma",
+            ],
+            axis=1,
+        )
+    else:
+        total_df = total_df.drop(
+            [
+                "id_episodio",
+                # "id_rasgos_clinicos_globales",
+                "id_rasgos_clinicos_episodio",
+                "id_registro_operatorio",
+                "id_rasgo_clinico_operatorio",
+                "id_registro_posoperatorio",
+                "id_hematoma",
+            ],
+            axis=1,
+        )
     total_df = total_df.drop_duplicates()
 
     return total_df

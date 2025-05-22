@@ -43,7 +43,8 @@ from apps.registro_operatorio.views.Rasgos_Clinicos_Operatorios_View import (
     Rasgos_Clinicos_Operatorios_View,
 )
 from apps.hematoma.views import Hematoma_Subdural_View
-from apps.exportar_csv.views import ExportCSVView
+from apps.exportar_csv.views.ExportCSVView import ExportCSVView
+from apps.exportar_csv.views.ExportKBCSVView import ExportKBCSVView
 
 router = DefaultRouter()
 router.register(
@@ -87,4 +88,5 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path("api/", include(router.urls)),
     path("api/export-csv/", ExportCSVView.as_view(), name="export-csv"),
+    path("api/export-kb-csv/", ExportKBCSVView.as_view(), name="export-kb-csv"),
 ]

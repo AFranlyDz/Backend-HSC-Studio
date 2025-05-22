@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .services.make_dataframe import make_dataframe
-from .services.prepare_headers import prepare_headers
+from ..services.make_dataframe import make_dataframe
+from ..services.prepare_headers import prepare_headers
 
 
 class ExportCSVView(APIView):
