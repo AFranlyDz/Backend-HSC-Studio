@@ -111,7 +111,6 @@ def make_knowledge_base(campos_seleccionados):
         ]
     )
 
-    # print(base_datos_plana)
     print(base_conocimiento)
 
     return base_conocimiento
