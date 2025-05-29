@@ -14,7 +14,7 @@ class Rasgos_Clinicos_Episodio(models.Model):
     episodio = models.ForeignKey(
         Episodio, on_delete=models.CASCADE, related_name="episodio_rce"
     )
-    tiempo = models.IntegerField()
+    tiempo = models.IntegerField(blank=True, null=True)
     notas = models.CharField(max_length=512)
 
     class Meta:

@@ -10,8 +10,8 @@ class historia_clinica(models.Model):
     edad = models.PositiveIntegerField()
     sexo = models.BooleanField()
     historial_trauma_craneal = models.BooleanField()
-    manualidad = models.BooleanField()
-    antecedentes_familiares = models.BooleanField()
+    manualidad = models.BooleanField(blank=True, null=True)
+    antecedentes_familiares = models.BooleanField(blank=True, null=True)
 
     class Meta:
         verbose_name = "historia clínica"

@@ -9,7 +9,7 @@ class Registro_Operatorio(models.Model):
     episodio = models.ForeignKey(
         Episodio, on_delete=models.CASCADE, related_name="episodio_registro_operatorio"
     )
-    fecha_operacion = models.DateField()
+    fecha_operacion = models.DateField(blank=True, null=True)
     es_reintervencion = models.BooleanField()
     escala_evaluacion_resultados_glasgow = models.IntegerField(
         validators=[MinValueValidator(3), MaxValueValidator(15)],

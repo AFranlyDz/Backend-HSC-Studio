@@ -1,16 +1,13 @@
 import pandas as pd
 import numpy as np
 from IPython.display import display
-from django.core.management.base import BaseCommand
 
 
 def import_csv():
-    help = "Este comando permite agregar las entradas de un csv a la base de datos"
-
     pd.set_option("display.max_rows", None)
     pd.set_option("display.max_columns", None)
 
-    hsc_kb = pd.read_csv(r"management/commands/hematoma.csv", delimiter=";")
+    hsc_kb = pd.read_csv(r"apps/exportar_csv/services/hematoma.csv", delimiter=";")
 
     columnas_eliminar = [
         " ",
@@ -149,12 +146,18 @@ def import_csv():
     hsc_kb.replace("", np.nan, inplace=True)
     hsc_kb.replace(r"^\s*$", np.nan, regex=True, inplace=True)
 
+    columnas_excluidas = ["NOMBRE                                ", " HISTORIA CLÍNICA"]
     # remplazar los valores que sean string a numero, aunque tengan espacios en blanco de sobra y cambiar comas por puntos para los valores de punto flotante
-    hsc_kb = hsc_kb.apply(
-        lambda col: pd.to_numeric(
-            col.astype(str).str.replace(",", ".").str.strip(), errors="coerce"
-        )
-    )
+    for col in hsc_kb.columns:
+        if col not in columnas_excluidas:
+            hsc_kb[col] = pd.to_numeric(
+                hsc_kb[col].astype(str).str.replace(",", ".").str.strip(),
+                errors="coerce",
+            )
+
+    hsc_kb[" HISTORIA CLÍNICA"].fillna("0000", inplace=True)
+    hsc_kb[" HISTORIA CLÍNICA"] = hsc_kb[" HISTORIA CLÍNICA"].astype(str)
+    hsc_kb[" HISTORIA CLÍNICA"] = hsc_kb[" HISTORIA CLÍNICA"].str.strip()
 
     # ahora vamos a llenar los campos Nan
     # codigo para variables categoricas
@@ -193,14 +196,8 @@ def import_csv():
         " DIÁMETRO MAYOR TRANSVERSO",
     ]
     lista_columnas_categoricas = hsc_kb.columns.difference(
-        lista_columnas_continuas
-        + ["NOMBRE                                ", " HISTORIA CLÍNICA"]
+        lista_columnas_continuas + columnas_excluidas
     )
     hsc_kb = corregir_faltantes_categoricos(hsc_kb, lista_columnas_categoricas)
     hsc_kb = corregir_faltantes_continuos(hsc_kb, lista_columnas_continuas)
-
-    display(hsc_kb.columns)
     return hsc_kb
-
-
-import_csv()
