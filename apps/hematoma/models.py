@@ -45,7 +45,7 @@ class hematoma_subdural(models.Model):
     )
     presencia_membrana = models.BooleanField()
     tipo_membrana = models.IntegerField(blank=True, null=True)
-    localización = models.CharField(max_length=255)
+    localización = models.IntegerField()
     topografia = models.CharField(max_length=255, blank=True, null=True)
     desviacion_linea_media = models.IntegerField()
     metodo_lectura = models.BooleanField(blank=True, null=True)

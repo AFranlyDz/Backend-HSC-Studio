@@ -45,6 +45,8 @@ from apps.registro_operatorio.views.Rasgos_Clinicos_Operatorios_View import (
 from apps.hematoma.views import Hematoma_Subdural_View
 from apps.exportar_csv.views.ExportCSVView import ExportCSVView
 from apps.exportar_csv.views.ExportKBCSVView import ExportKBCSVView
+from apps.ia.views.prob_recurrencia import prob_recurrencia
+from apps.ia.views.prob_estado_egreso import prob_estado_egreso
 
 router = DefaultRouter()
 router.register(
@@ -80,7 +82,6 @@ router.register(
 router.register(
     r"hematomas_subdurales", Hematoma_Subdural_View, basename="hematomas-subdurales"
 )
-### router.register(r"export-csv", ExportCSVView.as_view(), basename="export-csv")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -89,4 +90,14 @@ urlpatterns = [
     path("api/", include(router.urls)),
     path("api/export-csv/", ExportCSVView.as_view(), name="export-csv"),
     path("api/export-kb-csv/", ExportKBCSVView.as_view(), name="export-kb-csv"),
+    path(
+        "api/probabilidad_recurrencia/",
+        prob_recurrencia.as_view(),
+        name="probabilidad de recurrencia",
+    ),
+    path(
+        "api/probabilidad_egreso/",
+        prob_estado_egreso.as_view(),
+        name="probabilidad de estado al egreso",
+    ),
 ]

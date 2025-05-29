@@ -89,7 +89,7 @@ class Command(BaseCommand):
                 grupo_diametro=None,
                 presencia_membrana=row[" PRESENCIA DE MEMBRANA"],
                 tipo_membrana=None,
-                localización="DER" if row[" LOCALIZACIÓN DERECHO"] == 1 else "IZQ",
+                localización=0 if row[" LOCALIZACIÓN DERECHO"] == 1 else 1,
                 topografia=None,
                 desviacion_linea_media=row[" DESVIACIÓN DE LÍNEA MEDIA"],
                 metodo_lectura=None,
