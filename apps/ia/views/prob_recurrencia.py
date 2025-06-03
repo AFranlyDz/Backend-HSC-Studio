@@ -29,12 +29,24 @@ class prob_recurrencia(APIView):
             ],
             axis=1,
         )
-        print(fila_predictiva)
+        lista_tratamientos = [
+            "Tratamiento Quírurgico-1 Trépanos parietal únicos",
+            "Tratamiento Quírurgico-2 Trépanos parietal frontal",
+            "Tratamiento Quírurgico-3 Trépanos parietales bilaterales",
+            "Tratamiento Quírurgico-4 Trepanos parietal y frontal bilateral",
+            "Tratamiento Quírurgico-5 Craniectomía y membranectomía",
+            "Tratamiento Quírurgico-6 Ampliación del agujero de trépano",
+        ]
+        lista_respuesta = []
+        for i in lista_tratamientos:
+            for j in lista_tratamientos:
+                fila_predictiva[j] = False
+
+            fila_predictiva[i] = True
+            lista_respuesta.append(modelo.predict(fila_predictiva.values.tolist()))
+
         try:
-            prediction = modelo.predict(fila_predictiva.values.tolist())
-            return Response(
-                {"prediction": prediction.tolist()}, status=status.HTTP_200_OK
-            )
+            return Response({"prediction": lista_respuesta}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(
                 {"error": f"Error en la predicción: {str(e)}"},
