@@ -49,7 +49,7 @@ class hematoma_subdural(models.Model):
     topografia = models.CharField(max_length=255, blank=True, null=True)
     desviacion_linea_media = models.IntegerField()
     metodo_lectura = models.BooleanField(blank=True, null=True)
-    observaciones = models.CharField(max_length=512)
+    observaciones = models.CharField(max_length=512, blank=True)
 
     class Meta:
         verbose_name = "hematoma subdural"

@@ -13,9 +13,11 @@ class prob_estado_egreso(APIView):
         train_egreso_random_forest()
 
         modelo = joblib.load("apps/ia/models/random_forest_egreso_model.joblib")
-        data = request.data
+        id_historia = request.data.get("id")
 
-        fila_predictiva = make_kb().query(f"id_historia =={data}")
+        # kb = make_kb()
+        # fila_predictiva = kb.loc[kb["id_historia"] == id_historia].copy()
+        fila_predictiva = make_kb().query(f"id_historia == {id_historia}")
         fila_predictiva = fila_predictiva.drop(
             [
                 "id_historia",

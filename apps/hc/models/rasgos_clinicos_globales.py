@@ -14,7 +14,7 @@ class Rasgos_Clinicos_Globales(models.Model):
     historia_clinica = models.ForeignKey(
         historia_clinica, on_delete=models.CASCADE, related_name="historia_clinica"
     )
-    notas = models.CharField(max_length=512)
+    notas = models.CharField(max_length=512, blank=True)
 
     class Meta:
         verbose_name = "rasgo clinico global"

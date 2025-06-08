@@ -15,7 +15,7 @@ class Rasgos_Clinicos_Episodio(models.Model):
         Episodio, on_delete=models.CASCADE, related_name="episodio_rce"
     )
     tiempo = models.IntegerField(blank=True, null=True)
-    notas = models.CharField(max_length=512)
+    notas = models.CharField(max_length=512, blank=True)
 
     class Meta:
         verbose_name = "rasgo clinico del episodio"

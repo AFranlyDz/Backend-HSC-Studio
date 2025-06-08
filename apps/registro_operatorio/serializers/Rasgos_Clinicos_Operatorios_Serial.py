@@ -10,6 +10,17 @@ class Rasgos_Clinicos_Operatorios_Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class Rasgos_Operatorios_Serializer_Read(serializers.ModelSerializer):
+    class Meta:
+        model = Rasgos_Clinicos_Operatorios
+        fields = [
+            "id",
+            "registro_operatorio",
+            "codificador",
+        ]
+        depth = 1
+
+
 class Rasgos_Clinicos_Operatorios_Serial_Global(serializers.ModelSerializer):
     class Meta:
         model = Rasgos_Clinicos_Operatorios

@@ -41,6 +41,7 @@ from apps.registro_operatorio.views.Registro_Posoperatorio_View import (
 )
 from apps.registro_operatorio.views.Rasgos_Clinicos_Operatorios_View import (
     Rasgos_Clinicos_Operatorios_View,
+    Rasgos_Clinicos_Operatorios_Read,
 )
 from apps.hematoma.views import Hematoma_Subdural_View
 from apps.exportar_csv.views.ExportCSVView import ExportCSVView
@@ -78,6 +79,11 @@ router.register(
     r"rasgos_clinicos_operatorios",
     Rasgos_Clinicos_Operatorios_View,
     basename="rasgos-clinicos-operatorios",
+)
+router.register(
+    r"rasgos_operatorios_lectura",
+    Rasgos_Clinicos_Operatorios_Read,
+    basename="rasgos-operatorios-lectura",
 )
 router.register(
     r"hematomas_subdurales", Hematoma_Subdural_View, basename="hematomas-subdurales"
