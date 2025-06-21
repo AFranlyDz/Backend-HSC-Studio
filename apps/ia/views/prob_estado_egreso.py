@@ -10,7 +10,7 @@ from ..services.make_kb import make_kb
 
 class prob_estado_egreso(APIView):
     def post(self, request):
-        train_egreso_random_forest()
+        # train_egreso_random_forest()
 
         modelo = joblib.load("apps/ia/models/random_forest_egreso_model.joblib")
         id_historia = request.data.get("id")

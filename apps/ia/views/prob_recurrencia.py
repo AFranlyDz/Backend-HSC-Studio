@@ -11,7 +11,7 @@ from ..services.make_kb import make_kb
 
 class prob_recurrencia(APIView):
     def post(self, request):
-        train_recurrency_random_forest()
+        # train_recurrency_random_forest()
 
         modelo = joblib.load("apps/ia/models/random_forest_recurrency_model.joblib")
         id_historia = request.data.get("id")
