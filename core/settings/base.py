@@ -24,11 +24,11 @@ PROJECT_APPS = [
     "apps.hematoma",
     "apps.exportar_csv",
     "apps.ia",
+    "apps.security",
 ]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
-    "rest_framework_simplejwt",
     "corsheaders",
     "django_filters",
 ]
@@ -44,6 +44,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
 ]
 
 DATABASES = {
@@ -74,7 +75,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Havana"
 
 USE_I18N = True
 

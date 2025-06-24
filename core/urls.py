@@ -48,6 +48,7 @@ from apps.exportar_csv.views.ExportCSVView import ExportCSVView
 from apps.exportar_csv.views.ExportKBCSVView import ExportKBCSVView
 from apps.ia.views.prob_recurrencia import prob_recurrencia
 from apps.ia.views.prob_estado_egreso import prob_estado_egreso
+from apps.security.views import UserViewSet, GroupViewSet, CustomAuthToken
 
 router = DefaultRouter()
 router.register(
@@ -88,10 +89,12 @@ router.register(
 router.register(
     r"hematomas_subdurales", Hematoma_Subdural_View, basename="hematomas-subdurales"
 )
+router.register(r"users", UserViewSet)
+router.register(r"groups", GroupViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api-auth/", include("rest_framework.urls")),
+    path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("__debug__/", include("debug_toolbar.urls")),
     path("api/", include(router.urls)),
     path("api/export-csv/", ExportCSVView.as_view(), name="export-csv"),
@@ -106,4 +109,5 @@ urlpatterns = [
         prob_estado_egreso.as_view(),
         name="probabilidad de estado al egreso",
     ),
+    path("api/token-auth/", CustomAuthToken.as_view(), name="api_token_auth"),
 ]

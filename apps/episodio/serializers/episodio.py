@@ -35,6 +35,7 @@ class episodio_serializado(serializers.ModelSerializer):
 
 
 class episodio_serializado_2(serializers.ModelSerializer):
+
     class Meta:
         model = Episodio
         fields = "__all__"
